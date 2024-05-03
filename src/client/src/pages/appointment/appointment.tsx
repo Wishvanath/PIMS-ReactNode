@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Button } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { fetchAppointmentDetailsById, fetchAllAppointmentDetails } from './appointment-thunk';
@@ -37,11 +38,7 @@ const Appointment = () => {
   }, []);
 
 
-  // useEffect(
-  //   () => () => {
-  //     dispatch(fetchAppointmentDetailsById(1))
-  //   }
-  // );
+
 
   return (
     <>
@@ -49,9 +46,7 @@ const Appointment = () => {
       {JSON.stringify(appointmentById)}
 
       <h1>All Appointment details data</h1>
-
       {JSON.stringify(allAppointmentDetails)}
-      
 
 
     </>

@@ -50,3 +50,22 @@ export const getAllAppointmentDetails = async(
      console.log(error);
    }
 }
+
+export const createAppointment = async(
+    payload:any,
+) => {
+   try {
+    console.log("Service Payload:===========>", payload);
+    
+    const {data} = await microServiceInstance.post(
+        `${microServicesName}/api/appointment`,
+        payload
+    );
+    console.log("Services data: ===========>",data);
+    if(data){
+        return data;
+    }
+   } catch (error) {
+     console.log(error);
+   }
+}

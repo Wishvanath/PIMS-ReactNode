@@ -53,3 +53,18 @@ body {
   height: 32px;
   margin-left: 1rem;
 }
+
+
+
+.login-container {
+  width: 300px;
+  margin: 100px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.ant-btn-primary {
+  width: 100%;
+}

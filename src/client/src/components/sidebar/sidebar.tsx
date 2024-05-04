@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import {
   DesktopOutlined,
   FileOutlined,
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Grid,Breadcrumb, Layout, Menu, theme } from 'antd';
+import { Button,Grid, Breadcrumb, Layout, Menu, theme } from 'antd';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -18,7 +20,7 @@ function getItem(
   label: React.ReactNode,
   key: React.Key,
   icon?: React.ReactNode,
-  children?: MenuItem[],
+  children?: MenuItem[]
 ): MenuItem {
   return {
     key,
@@ -29,18 +31,18 @@ function getItem(
 }
 
 const items: MenuItem[] = [
-  getItem(
-    <Link to="/appointment">Appointment</Link>,
-    'Option 1', '1'
-  ),
-  getItem('Option 2', '2', <DesktopOutlined />),
+  getItem(<Link to="/dashboard">Dashboard</Link>, '1', <UserOutlined />),
+  getItem(<Link to="/appointment">Appointment</Link>, '2', <TeamOutlined />),
+  getItem(<Link to="/patients">Patients</Link>, '3', <PieChartOutlined />),
+  getItem(<Link to="/doctors">Doctors</Link>, '4', <FileOutlined />),
+  getItem(<Link to="/pharmacy">Pharmacy</Link>, '5', <DesktopOutlined />),
+  getItem(<Link to="/billings">Billings</Link>, '6', <DesktopOutlined />),
+  getItem(<Link to="/settings">Settings</Link>, '7', <DesktopOutlined />),
   getItem('User', 'sub1', <UserOutlined />, [
-    getItem('Tom', '3'),
-    getItem('Bill', '4'),
-    getItem('Alex', '5'),
+    getItem('Tom', '8'),
+    getItem('Bill', '9'),
+    getItem('Alex', '10'),
   ]),
-  getItem('Team', 'sub2', <TeamOutlined />, [getItem('Team 1', '6'), getItem('Team 2', '8')]),
-  getItem('Files', '9', <FileOutlined />),
 ];
 
 const SideBar = () => {
@@ -50,24 +52,54 @@ const SideBar = () => {
   } = theme.useToken();
 
   const { useBreakpoint } = Grid;
-  const { md, lg } = useBreakpoint();
-  return(
+  const { lg } = useBreakpoint();
+  return (
     <Layout style={{ minHeight: '100vh' }}>
-    <Sider collapsible={lg} collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-      <div className="demo-logo-vertical" />
-      <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
-    </Sider>
-    <Layout>
-      <Header style={{ padding: 0, background: colorBgContainer }} />
-      <Content>
-        <Outlet />
-      </Content>
-      <Footer style={{ textAlign: 'center' }}>
-        Ant Design ©{new Date().getFullYear()} Created by Ant UED
-      </Footer>
+      <Sider
+        collapsible={lg}
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
+        <div className="demo-logo-vertical" style={{ padding: 50 }} />
+
+        <Menu
+          theme="dark"
+          defaultSelectedKeys={['1']}
+          mode="inline"
+          items={items}
+        />
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Button
+            type="text"
+            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+            onClick={() => setCollapsed(!collapsed)}
+            style={{
+              fontSize: '16px',
+              width: 64,
+              height: 64,
+            }}
+          />
+        </Header>  
+        <Content style={{ margin: '0 16px' }}>
+          <div
+            style={{
+              padding: 24,
+              minHeight: 500,
+              background: colorBgContainer,
+              borderRadius: borderRadiusLG,
+            }}
+          >
+            <Outlet />
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          PIMS Hospital ©{new Date().getFullYear()} Created by Wishvanath
+        </Footer>
+      </Layout>
     </Layout>
-  </Layout>
-  )
-}
+  );
+};
 
 export default SideBar;

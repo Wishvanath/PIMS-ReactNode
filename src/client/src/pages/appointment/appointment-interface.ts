@@ -19,6 +19,12 @@ export default interface IAppointment {
     | typeof AsyncStatus.LOADING
     | typeof AsyncStatus.SUCCESS
     | typeof AsyncStatus.FAILURE;
+    createAppointmentResponseAsyncStatus:
+    | typeof AsyncStatus.INITIAL
+    | typeof AsyncStatus.CANCELLED
+    | typeof AsyncStatus.LOADING
+    | typeof AsyncStatus.SUCCESS
+    | typeof AsyncStatus.FAILURE;  
   patientId: number;
   firstName: string;
   lastName: string;
@@ -31,6 +37,7 @@ export default interface IAppointment {
   appointment: Array<IAppointmentDetails>;
   appointmentDetailsById: any;
   allAppointmentDetails: any;
+  createAppointmentResponse: any;
 }
 
 export interface IAppointmentDetails {

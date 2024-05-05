@@ -14,6 +14,7 @@ import {
   selectAllAppointmentDetailsAsyncStatus,
   selectAppointmentDetailsByIdAsyncStatus,
 } from './appointment-selector';
+import AppointmentForm from '../../components/appointment-form/appointment-form';
 
 const contentStyle: React.CSSProperties = {
   padding: 50,
@@ -43,7 +44,7 @@ const Appointment = () => {
   const bodyPyload: any = {
     limit: 10,
     offset: 0,
-    keyword: 'Wish',
+    keyword: 'R',
     filters: {
       assignedDoctor: [1, 2],
     },
@@ -52,7 +53,8 @@ const Appointment = () => {
   console.log(appointmentById);
 
   useEffect(() => {
-    dispatch(fetchAppointmentDetailsById(1));
+    dispatch(fetchAppointmentDetailsById(89));
+    console.log("hasSucceded(appointmentDetailsByIdAsyncStatus):==========>",hasSucceded(appointmentDetailsByIdAsyncStatus));
   }, []);
 
   useEffect(() => {
@@ -80,13 +82,9 @@ const Appointment = () => {
           </Spin>
         </>
       )}
-      {/* <Spin tip="Loading">
-      <h1>Single Appointment</h1>
-          {JSON.stringify(appointmentById)}
-
-          <h1>All Appointment details data</h1>
-          {JSON.stringify(allAppointmentDetails)}
-      </Spin> */}
+      
+      <h1>Appointment Form</h1>
+      <AppointmentForm />
     </>
   );
 };

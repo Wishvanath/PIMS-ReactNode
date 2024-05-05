@@ -17,7 +17,7 @@ appointmentRouter.post(
     getAllAppointmentDetails
 );
 appointmentRouter.post(
-    '/',
+    '/create',
     createAppointment
 );
 

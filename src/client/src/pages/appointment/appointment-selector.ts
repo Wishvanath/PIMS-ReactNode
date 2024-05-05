@@ -14,3 +14,9 @@ export const selectAllAppointmentDetailsAsyncStatus = (state: IRootState) =>
 
 export const selectAllAppointmentDetails = (state: IRootState) => 
     state.appointment.allAppointmentDetails;
+
+export const selectCreateAppointmentResponseAsyncStatus = (state: IRootState) =>
+    state.appointment.createAppointmentResponseAsyncStatus;
+
+export const selectCreateAppointmentResponse = (state: IRootState) => 
+    state.appointment.createAppointmentResponse;

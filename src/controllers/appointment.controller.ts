@@ -56,7 +56,7 @@ export const createAppointment = async (
     const payload = req.body;
 
     // console.log('Controller req body:=======>', req.body);
-    // console.log('Controller payload:=======>', payload);
+    console.log('Controller payload:=======>', payload);
 
     const data = await appointmentService.createAppointment(payload);
     console.log('Controller data:=======>', data);

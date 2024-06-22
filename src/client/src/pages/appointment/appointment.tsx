@@ -15,6 +15,7 @@ import {
   selectAppointmentDetailsByIdAsyncStatus,
 } from './appointment-selector';
 import AppointmentForm from '../../components/appointment-form/appointment-form';
+import AppointmentsTable from '../../components/appointment-table/appointment-table';
 
 const contentStyle: React.CSSProperties = {
   padding: 50,
@@ -33,6 +34,7 @@ const Appointment = () => {
   const appointmentDetailsByIdAsyncStatus = useSelector(
     selectAppointmentDetailsByIdAsyncStatus
   );
+  const patients = allAppointmentDetails.rows;
   // const [demoLoading, setDemoLoading] = useState(false);
 
   // useEffect(() => {
@@ -44,7 +46,7 @@ const Appointment = () => {
   const bodyPyload: any = {
     limit: 10,
     offset: 0,
-    keyword: 'R',
+    keyword: '',
     filters: {
       assignedDoctor: [1, 2],
     },
@@ -73,7 +75,10 @@ const Appointment = () => {
           {JSON.stringify(appointmentById)}
 
           <h1>All Appointment details data</h1>
-          {JSON.stringify(allAppointmentDetails)}
+          {JSON.stringify(allAppointmentDetails.rows)}
+
+          <h1>Appointment Table</h1>
+      <AppointmentsTable patients={patients} count = {20}/>
         </>
       ) : (
         <>
@@ -85,6 +90,11 @@ const Appointment = () => {
       
       <h1>Appointment Form</h1>
       <AppointmentForm />
+
+
+     
+
+      
     </>
   );
 };

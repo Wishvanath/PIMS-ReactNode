@@ -35,7 +35,7 @@ export const getAllAppointmentDetails = async (
     // console.log('Controller payload:=======>', payload);
 
     const data = await appointmentService.getAllAppointmentDetails(payload);
-    console.log('Controller data:=======>', data);
+    console.log('Controller data:=======>', data.length);
     return res.status(res.statusCode).json(data);
   } catch (error) {
     return next(error);

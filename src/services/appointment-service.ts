@@ -45,6 +45,11 @@ export const getAllAppointmentDetails = async(
     console.log("Services data: ===========>",data);
     if(data.count){
         return data;
+    }else{
+        return{
+            rows: [],
+            count:0
+        }
     }
    } catch (error) {
      console.log(error);

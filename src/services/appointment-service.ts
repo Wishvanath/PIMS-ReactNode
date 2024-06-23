@@ -74,3 +74,23 @@ export const createAppointment = async(
      console.log(error);
    }
 }
+
+
+export const updateAppointmentById = async(
+    payload:any,
+) => {
+   try {
+    console.log("Service Payload:===========>", payload);
+    
+    const {data} = await microServiceInstance.put(
+        `${microServicesName}/api/appointment`,
+        payload
+    );
+    console.log("Services data: ===========>",data);
+    if(data){
+        return data;
+    }
+   } catch (error) {
+     console.log(error);
+   }
+}

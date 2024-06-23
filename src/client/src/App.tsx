@@ -11,6 +11,8 @@ import Doctors from './pages/doctors/doctors';
 import Pharmacy from './pages/pharmacy/pharmacy';
 import Billings from './pages/billings/billings';
 import Settings from './pages/settings/settings';
+import SinglePatient from './pages/patients/single-patient';
+import AppointmentForm from './components/appointment-form/appointment-form';
 
 const App = () => (
   <Routes>
@@ -19,8 +21,10 @@ const App = () => (
     <Route path="*" element={<PageNotFound />} />
     <Route path="/" element={<SideBar />}>
       <Route index path="appointment" element={<Appointment />} />
+      <Route index path="/new-appointment" element={<AppointmentForm />} />
       <Route index path="dashboard" element={<Dashboard />} />
       <Route index path="patients" element={<Patients />} />
+      <Route index path="patients/:id" element={<SinglePatient />} />
       <Route index path="doctors" element={<Doctors />} />
       <Route index path="pharmacy" element={<Pharmacy />} />
       <Route index path="billings" element={<Billings />} />

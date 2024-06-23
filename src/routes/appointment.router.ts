@@ -3,7 +3,8 @@ import  express  from "express";
 import {
     getAppointmentDetails, 
     getAllAppointmentDetails,
-    createAppointment
+    createAppointment,
+    updateAppointmentById
 } from '../controllers/appointment.controller'
 const appointmentRouter = express.Router();
 
@@ -19,6 +20,11 @@ appointmentRouter.post(
 appointmentRouter.post(
     '/create',
     createAppointment
+);
+
+appointmentRouter.put(
+    '/update',
+    updateAppointmentById
 );
 
 export default appointmentRouter;

@@ -2,7 +2,6 @@ import { IRootState } from "../../app/store";
 
 // import interface
 
-
 export const selectAppointmentDetailsByIdAsyncStatus = (state: IRootState) =>
     state.appointment.appointmentDetailsByIdAsyncStatus;
 
@@ -20,3 +19,9 @@ export const selectCreateAppointmentResponseAsyncStatus = (state: IRootState) =>
 
 export const selectCreateAppointmentResponse = (state: IRootState) => 
     state.appointment.createAppointmentResponse;
+
+export const selectUpdateAppointmentByIdResponse = (state: IRootState) => 
+    state.appointment.updateAppointmentByIdResponse;
+
+export const selectUpdateAppointmentByIdAsyncStatus = (state: IRootState) => 
+    state.appointment.updateAppointmentByIdResponseAsyncStatus;

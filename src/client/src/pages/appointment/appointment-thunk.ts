@@ -76,3 +76,48 @@ export const createAppointment: any = createAsyncThunk(
     }
   }
 );
+
+
+export const updateAppointmentById: any = createAsyncThunk(
+  '/update',
+  async ({
+    firstName,
+    lastName,
+    nationality,
+    gender,
+    address,
+    dob,
+    phone,
+    email,
+    type,
+    date,
+    time,
+    appointmentDescp,
+    doctorId,
+    patientId
+  }: any) => {
+    try {
+      console.log('Thunk console:=============>', firstName, lastName);
+      const response = await appointmentService.updateAppointmentById(
+        firstName,
+        lastName,
+        nationality,
+        gender,
+        address,
+        dob,
+        phone,
+        email,
+        type,
+        date,
+        time,
+        appointmentDescp,
+        doctorId,
+        patientId
+      );
+      console.log("Appointmeent thunk response:========>", response.data);
+      return response.data
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);

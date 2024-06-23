@@ -1,21 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Spin } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
+import { Input, Checkbox, Spin } from 'antd';
+import type { CheckboxValueType } from 'antd/es/checkbox/Group';
+
+import AppointmentTable from '../../components/appointment-table/appointment-table';
+import { fetchAllAppointmentDetails } from '../appointment/appointment-thunk';
+import { hasSucceded } from '../../utils/async-status';
 
 import {
-  fetchAppointmentDetailsById,
-  fetchAllAppointmentDetails,
-} from './appointment-thunk';
-import { hasSucceded } from '../../utils/async-status';
-import { IRootState } from '../../app/store';
-import {
-  selectAppointmentDetailsById,
   selectAllAppointmentDetails,
   selectAllAppointmentDetailsAsyncStatus,
-  selectAppointmentDetailsByIdAsyncStatus,
-} from './appointment-selector';
-import AppointmentForm from '../../components/appointment-form/appointment-form';
-import AppointmentsTable from '../../components/appointment-table/appointment-table';
+} from '../appointment/appointment-selector';
 
 const contentStyle: React.CSSProperties = {
   padding: 50,
@@ -24,61 +19,73 @@ const contentStyle: React.CSSProperties = {
 };
 const content = <div style={contentStyle} />;
 
+const { Search } = Input;
+const doctorOptions = [
+  { label: 'Dr. Smith', value: 1 },
+  { label: 'Dr. Johnson', value: 2 },
+  { label: 'Dr. Brown', value: 3 },
+  { label: 'Dr. Taylor', value: 4 },
+];
+
 const Appointment = () => {
   const dispatch = useDispatch();
-  const appointmentById = useSelector(selectAppointmentDetailsById);
   const allAppointmentDetails = useSelector(selectAllAppointmentDetails);
   const allAppointmentDetailsAsyncStatus = useSelector(
     selectAllAppointmentDetailsAsyncStatus
   );
-  const appointmentDetailsByIdAsyncStatus = useSelector(
-    selectAppointmentDetailsByIdAsyncStatus
-  );
   const patients = allAppointmentDetails.rows;
-  // const [demoLoading, setDemoLoading] = useState(false);
+  const patientsCount = allAppointmentDetails.count;
+  const loading = hasSucceded(allAppointmentDetailsAsyncStatus);
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setDemoLoading(true)
-  //   }, 5000)
-  // }, [])
+  const [searchText, setSearchText] = useState<string>('');
+  const [selectedDoctors, setSelectedDoctors] = useState<CheckboxValueType[]>(
+    []
+  );
+
+  const onSearch = (value: string) => {
+    setSearchText(value);
+    console.log('Search Text:', value);
+    // Implement search logic here
+  };
+
+  const onDoctorChange = (checkedValues: CheckboxValueType[]) => {
+    setSelectedDoctors(checkedValues);
+    console.log('Selected Doctors:', checkedValues);
+    // Implement filter logic here
+  };
 
   const bodyPyload: any = {
-    limit: 10,
+    limit: patientsCount,
     offset: 0,
-    keyword: '',
+    keyword: searchText,
     filters: {
-      assignedDoctor: [1, 2],
+      assignedDoctor: selectedDoctors,
     },
   };
 
-  console.log(appointmentById);
-
-  useEffect(() => {
-    dispatch(fetchAppointmentDetailsById(89));
-    console.log("hasSucceded(appointmentDetailsByIdAsyncStatus):==========>",hasSucceded(appointmentDetailsByIdAsyncStatus));
-  }, []);
-
   useEffect(() => {
     dispatch(fetchAllAppointmentDetails(bodyPyload));
-  }, []);
-
-  const loading =
-    hasSucceded(allAppointmentDetailsAsyncStatus) &&
-    hasSucceded(appointmentDetailsByIdAsyncStatus);
+  }, [searchText, selectedDoctors]);
 
   return (
     <>
+      <h1>All Patient's Appointment Details</h1>
+      <div style={{ padding: 20 }}>
+        <Search
+          placeholder="Search..."
+          onSearch={onSearch}
+          enterButton
+          style={{ marginBottom: 20 }}
+        />
+        <Checkbox.Group
+          options={doctorOptions}
+          value={selectedDoctors}
+          onChange={onDoctorChange}
+        />
+      </div>
       {loading ? (
         <>
-          <h1>Single Appointment</h1>
-          {JSON.stringify(appointmentById)}
-
-          <h1>All Appointment details data</h1>
-          {JSON.stringify(allAppointmentDetails.rows)}
-
-          <h1>Appointment Table</h1>
-      <AppointmentsTable patients={patients} count = {20}/>
+          <AppointmentTable patients={patients} count={patientsCount} />
         </>
       ) : (
         <>
@@ -87,16 +94,7 @@ const Appointment = () => {
           </Spin>
         </>
       )}
-      
-      <h1>Appointment Form</h1>
-      <AppointmentForm />
-
-
-     
-
-      
     </>
   );
 };
-
 export default Appointment;

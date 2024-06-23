@@ -32,7 +32,12 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem(<Link to="/dashboard">Dashboard</Link>, '1', <UserOutlined />),
-  getItem(<Link to="/appointment">Appointment</Link>, '2', <TeamOutlined />),
+  getItem('Appointment', '2', <TeamOutlined />,
+    [
+      getItem(<Link to="/appointment">Appointment Details</Link>, '2.1'),
+      getItem(<Link to="/new-appointment">Create Appointment</Link>, '2.2'),
+    ]
+  ),
   getItem(<Link to="/patients">Patients</Link>, '3', <PieChartOutlined />),
   getItem(<Link to="/doctors">Doctors</Link>, '4', <FileOutlined />),
   getItem(<Link to="/pharmacy">Pharmacy</Link>, '5', <DesktopOutlined />),

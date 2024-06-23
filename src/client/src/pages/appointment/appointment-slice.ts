@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 // import thunk methods
-import { fetchAppointmentDetailsById, fetchAllAppointmentDetails, createAppointment } from './appointment-thunk';
+import { fetchAppointmentDetailsById, fetchAllAppointmentDetails, createAppointment, updateAppointmentById } from './appointment-thunk';
 import { AsyncStatus } from '../../utils/async-status';
 import IAppointment from './appointment-interface';
 
@@ -13,6 +13,9 @@ const initialState = {
 
   createAppointmentResponseAsyncStatus: AsyncStatus.INITIAL,
   createAppointmentResponse: [],
+
+  updateAppointmentByIdResponseAsyncStatus: AsyncStatus.INITIAL,
+  updateAppointmentByIdResponse: [],
   
 } as IAppointment;
 
@@ -70,6 +73,22 @@ const appointmentSlice = createSlice({
         (state: IAppointment, { payload }: any) => {
           state.createAppointmentResponseAsyncStatus = AsyncStatus.SUCCESS;
           state.createAppointmentResponse = payload;
+          console.log("Payload:=======>", payload);
+        }
+      )
+
+      // update appointment by id
+      .addCase(updateAppointmentById.pending, (state: any) => {
+        state.updateAppointmentByIdResponseAsyncStatus = AsyncStatus.LOADING;
+      })
+      .addCase(updateAppointmentById.rejected, (state: any) => {
+        state.updateAppointmentByIdResponseAsyncStatus = AsyncStatus.FAILURE;
+      })
+      .addCase(
+        updateAppointmentById.fulfilled,
+        (state: any, { payload }: any) => {
+          state.updateAppointmentByIdResponseAsyncStatus = AsyncStatus.SUCCESS;
+          state.updateAppointmentByIdResponse = payload;
           console.log("Payload:=======>", payload);
         }
       );

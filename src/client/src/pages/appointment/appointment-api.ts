@@ -46,3 +46,37 @@ export const createAppointment = (
     appointmentDescp,
     doctorId,
   });
+
+
+  export const updateAppointmentById = (
+    firstName: string,
+    lastName: string,
+    nationality: string,
+    gender: string,
+    address: string,
+    dob: string,
+    phone: string,
+    email: string,
+    type: string,
+    date: string,
+    time: string,
+    appointmentDescp: string,
+    doctorId: string,
+    patientId: number,
+  ) =>
+    requestInstance.put(`/appointment/update`, {
+      firstName,
+      lastName,
+      nationality,
+      gender,
+      address,
+      dob,
+      phone,
+      email,
+      type,
+      date,
+      time,
+      appointmentDescp,
+      doctorId,
+      patientId
+    });

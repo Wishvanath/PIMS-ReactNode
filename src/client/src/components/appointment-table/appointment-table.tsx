@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Table, Button } from 'antd';
-
 
 interface Patient {
   patientId: number;
@@ -23,8 +23,9 @@ interface Props {
 
 
 const AppointmentTable: React.FC<Props> = ({ patients, count }) => {
-  const onViewVlick = (patient: any) => {
-    console.log('You have clicked on View Button', patient);
+  const navigate = useNavigate();
+  const onViewVlick = (id: number) => {
+    navigate(`/patients/${id}`);
   };
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 5; // Number of items per page
@@ -72,7 +73,6 @@ const AppointmentTable: React.FC<Props> = ({ patients, count }) => {
   ];
 
 
-  console.log("Patient Data :===========>",patients);
   const data = patients.map((patient, index) => ({
     key: index,
     firstName: patient.firstName,
@@ -94,7 +94,6 @@ const AppointmentTable: React.FC<Props> = ({ patients, count }) => {
 
   return (
     <>
-      
       <Table
         columns={columns}
         dataSource={data}

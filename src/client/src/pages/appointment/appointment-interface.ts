@@ -19,7 +19,13 @@ export default interface IAppointment {
     | typeof AsyncStatus.LOADING
     | typeof AsyncStatus.SUCCESS
     | typeof AsyncStatus.FAILURE;
-    createAppointmentResponseAsyncStatus:
+  createAppointmentResponseAsyncStatus:
+    | typeof AsyncStatus.INITIAL
+    | typeof AsyncStatus.CANCELLED
+    | typeof AsyncStatus.LOADING
+    | typeof AsyncStatus.SUCCESS
+    | typeof AsyncStatus.FAILURE;
+  updateAppointmentByIdResponseAsyncStatus:
     | typeof AsyncStatus.INITIAL
     | typeof AsyncStatus.CANCELLED
     | typeof AsyncStatus.LOADING
@@ -38,6 +44,8 @@ export default interface IAppointment {
   appointmentDetailsById: any;
   allAppointmentDetails: any;
   createAppointmentResponse: any;
+  updateAppointmentByIdResponse: any;
+  
 }
 
 export interface IAppointmentDetails {
